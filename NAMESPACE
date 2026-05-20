@@ -2,3 +2,4 @@
 
 export(check_same_taxa)
 export(read_trees_from_dir)
+export(translate_tree_tips)
