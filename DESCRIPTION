@@ -34,7 +34,8 @@ RoxygenNote: 8.0.0
 URL: https://github.com/mdrifathahamed/phylorugD1
 BugReports: https://github.com/mdrifathahamed/phylorugD1/issues
 Imports: 
-    ape
+    ape,
+    phangorn
 Suggests: 
     knitr,
     readxl,
