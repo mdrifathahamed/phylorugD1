@@ -34,9 +34,9 @@ RoxygenNote: 8.0.0
 URL: https://github.com/mdrifathahamed/phylorugD1
 BugReports: https://github.com/mdrifathahamed/phylorugD1/issues
 Depends:
-    ape,
-    phytools
-Imports: 
+    ape
+Imports:
+    phytools,
     phangorn,
     graphics
 Suggests: 
