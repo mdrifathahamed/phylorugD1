@@ -2,6 +2,7 @@
 
 export(check_same_taxa)
 export(node_presence_matrix)
+export(plot_node_rug)
 export(read_trees_from_dir)
 export(rug_layout_map)
 export(translate_tree_tips)
