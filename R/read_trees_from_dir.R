@@ -21,13 +21,12 @@
 #'
 #' @examples
 #' \dontrun{
-#'   trees <- read_trees_from_dir(
-#'     dir    = "path/to/your/trees",
-#'     ext    = "tre",
-#'     format = "newick"
-#'   )
+#' trees <- read_trees_from_dir(
+#'   dir    = "path/to/your/trees",
+#'   ext    = "tre",
+#'   format = "newick"
+#' )
 #' }
-
 read_trees_from_dir <- function(dir,
                                 ext = "tre",
                                 format = c("newick", "nexus")) {
@@ -61,19 +60,26 @@ read_trees_from_dir <- function(dir,
   # Read each file, warn and return NULL if a file fails
   trees <- lapply(files, function(f) {
     tryCatch(
-      reader(f),
+      suppressWarnings(reader(f)),
       error = function(e) {
-        warning(
-          "Could not read file: ", basename(f),
-          "\nReason: ", e$message,
-          call. = FALSE
-        )
+        message("Could not read: ", basename(f), " - ", e$message)
         NULL
       }
     )
   })
 
-  # Name list elements and return
+  # Name list elements
   names(trees) <- basename(files)
+
+  # Report how many files failed
+  failed <- sum(vapply(trees, is.null, logical(1)))
+  if (failed > 0) {
+    warning(
+      failed, " file(s) could not be read and were set to NULL. ",
+      "Run check_same_taxa() before proceeding.",
+      call. = FALSE
+    )
+  }
+
   trees
 }

@@ -36,7 +36,6 @@ BugReports: https://github.com/mdrifathahamed/phylorugD1/issues
 Depends:
     ape
 Imports:
-    phytools,
     phangorn,
     graphics
 Suggests: 

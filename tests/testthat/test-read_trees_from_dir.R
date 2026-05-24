@@ -39,3 +39,24 @@ test_that("returns a named list of phylo objects", {
   expect_equal(names(trees), basename(list.files(folder,   # what should the names be?
                                                       pattern = "\\.tre$")))
 })
+test_that("warns when a file cannot be read", {
+  tmp <- tempdir()
+
+  # Create one valid tree file and one corrupt file
+  writeLines("(A,B);", file.path(tmp, "good.tre"))
+  writeLines("THIS IS NOT A TREE", file.path(tmp, "bad.tre"))
+
+  expect_warning(
+    result <- read_trees_from_dir(tmp, ext = "tre"),
+    "file\\(s\\) could not be read"
+  )
+
+  # Result still has both elements — bad one is NULL
+  expect_equal(length(result), 2)
+  expect_null(result$bad.tre)
+  expect_s3_class(result$good.tre, "phylo")
+
+  # Clean up
+  file.remove(file.path(tmp, "good.tre"))
+  file.remove(file.path(tmp, "bad.tre"))
+})

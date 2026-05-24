@@ -28,10 +28,10 @@ files for easy tracking.
 }
 \examples{
 \dontrun{
-  trees <- read_trees_from_dir(
-    dir    = "path/to/your/trees",
-    ext    = "tre",
-    format = "newick"
-  )
+trees <- read_trees_from_dir(
+  dir    = "path/to/your/trees",
+  ext    = "tre",
+  format = "newick"
+)
 }
 }
