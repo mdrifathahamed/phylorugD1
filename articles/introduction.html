@@ -117,8 +117,7 @@ on dung beetles but works on any phylogenomic dataset.</p>
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mdrifathahamed/phylorugD1"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mdrifathahamed/phylorugD1"</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -357,13 +356,20 @@ plot environment and draws the rug grid at each uncertain node.</p>
 <span></span>
 <span><span class="co"># Split nodes</span></span>
 <span><span class="va">rug_mt_variable</span> <span class="op">&lt;-</span> <span class="va">rug_mt</span><span class="op">[</span></span>
-<span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">rug_mt</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="fl">1</span>,</span>
-<span>         <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span></span>
+<span>    <span class="va">rug_mt</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>    <span class="fl">1</span>,</span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">rug_mt_unanimous</span> <span class="op">&lt;-</span> <span class="va">rug_mt</span><span class="op">[</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">rug_mt</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="fl">1</span>,</span>
-<span>        <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
-<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span></span>
+<span>    <span class="va">rug_mt</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>    <span class="fl">1</span>,</span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">]</span></span>
 <span><span class="co"># Plot backbone tree</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/plot.phylo.html" class="external-link">plot.phylo</a></span><span class="op">(</span><span class="va">backbone</span>, show.tip.label <span class="op">=</span> <span class="cn">TRUE</span>, cex <span class="op">=</span> <span class="fl">0.4</span>,</span>
 <span>           label.offset <span class="op">=</span> <span class="fl">0.001</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span>, edge.width <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
@@ -430,11 +436,8 @@ rapid diversification at that node.</p>
 </h2>
 <p>Two parameters control the visual appearance:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell_h</span> <span class="op">&lt;-</span> <span class="va">dy</span> <span class="op">*</span> <span class="fl">0.18</span>   <span class="co"># increase → bigger cells</span></span>
-<span>                      <span class="co"># decrease → smaller cells</span></span>
-<span></span>
-<span><span class="va">x_offset</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>     <span class="co"># increase → grid moves further right of node</span></span>
-<span>                     <span class="co"># decrease → grid sits closer to node</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell_h</span> <span class="op">&lt;-</span> <span class="va">dy</span> <span class="op">*</span> <span class="fl">0.18</span>   <span class="co"># increase for bigger cells, decrease for smaller</span></span>
+<span><span class="va">x_offset</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>      <span class="co"># increase to move right, decrease to move left</span></span></code></pre></div>
 <p>For large trees (200+ taxa) we recommend saving to PDF with
 <code>width = 16</code> and <code>height = 40</code> to give each node
 enough space.</p>

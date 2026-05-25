@@ -51,7 +51,6 @@ dung beetles but works on any phylogenomic dataset.
 
 ``` r
 
-# install.packages("pak")
 pak::pak("mdrifathahamed/phylorugD1")
 ```
 
@@ -290,13 +289,20 @@ map_to_color <- function(val, pal_info) {
 
 # Split nodes
 rug_mt_variable <- rug_mt[
-  !apply(rug_mt[, -1, drop = FALSE], 1,
-         function(x) all(x == 1)), , drop = FALSE]
+  !apply(
+    rug_mt[, -1, drop = FALSE],
+    1,
+    function(x) all(x == 1)
+  ), , drop = FALSE
+]
 
 rug_mt_unanimous <- rug_mt[
-  apply(rug_mt[, -1, drop = FALSE], 1,
-        function(x) all(x == 1)), , drop = FALSE]
-
+  apply(
+    rug_mt[, -1, drop = FALSE],
+    1,
+    function(x) all(x == 1)
+  ), , drop = FALSE
+]
 # Plot backbone tree
 plot.phylo(backbone, show.tip.label = TRUE, cex = 0.4,
            label.offset = 0.001, no.margin = TRUE, edge.width = 1.5)
@@ -361,11 +367,8 @@ Two parameters control the visual appearance:
 
 ``` r
 
-cell_h <- dy * 0.18   # increase → bigger cells
-                      # decrease → smaller cells
-
-x_offset <- 0.04     # increase → grid moves further right of node
-                     # decrease → grid sits closer to node
+cell_h <- dy * 0.18   # increase for bigger cells, decrease for smaller
+x_offset <- 0.04      # increase to move right, decrease to move left
 ```
 
 For large trees (200+ taxa) we recommend saving to PDF with `width = 16`
