@@ -2,20 +2,20 @@
 % Please edit documentation in R/rug_layout_map.R
 \name{rug_layout_map}
 \alias{rug_layout_map}
-\title{Map Phylogenetic Trees to Grid Cell Coordinates for Rug Plots}
+\title{Map phylogenetic trees to grid cell coordinates for rug plots}
 \usage{
 rug_layout_map(rug_mt, n_rows = 2, n_cols = 3)
 }
 \arguments{
-\item{rug_mt}{A matrix or data frame where the first column contains the reference
-\code{node_id} values (numeric or character), and the subsequent columns contain
-the names or labels of the phylogenetic comparison trees.}
+\item{rug_mt}{A matrix or data frame where the first column contains the
+reference \code{node_id} values (numeric or character), and the subsequent
+columns contain the names or labels of the phylogenetic comparison trees.}
 
-\item{n_rows}{An integer specifying the maximum number of grid rows to arrange
-the tree cells vertically. Default is \code{2}.}
+\item{n_rows}{An integer specifying the maximum number of grid rows to
+arrange the tree cells vertically. Default is \code{2}.}
 
-\item{n_cols}{An integer specifying the maximum number of grid columns to arrange
-the tree cells horizontally. Default is \code{3}.}
+\item{n_cols}{An integer specifying the maximum number of grid columns to
+arrange the tree cells horizontally. Default is \code{3}.}
 }
 \value{
 A long-format data frame with one row per node per analysis
@@ -29,14 +29,16 @@ and five columns:
 }
 }
 \description{
-Transforms a wide node-support matrix into a long-format data frame containing
-the specific row, column, and sequential index positions for each comparison
-tree within a compact color-coded rug plot grid. This function is essential
-for mapping multiple tree analyses to individual sub-cells at each backbone node.
+Transforms a wide node-support matrix into a long-format data frame
+containing the specific row, column, and sequential index positions for each
+comparison tree within a compact color-coded rug plot grid. This function is
+essential for mapping multiple tree analyses to individual sub-cells at each
+backbone node.
 }
 \examples{
 \dontrun{
-# Example support matrix for 3 reference nodes across 5 alternative tree analyses
+# Example support matrix for 3 nodes across 5 alternative analyses
+
 mock_matrix <- matrix(
   c(
     10, 1, 0.95, 0.80, 1, 0,
@@ -45,7 +47,9 @@ mock_matrix <- matrix(
   ),
   nrow = 3, byrow = TRUE
 )
-colnames(mock_matrix) <- c("node_id", "TreeA", "TreeB", "TreeC", "TreeD", "TreeE")
+colnames(mock_matrix) <- c(
+  "node_id", "TreeA", "TreeB", "TreeC", "TreeD", "TreeE"
+)
 
 # Map the positions onto a 2x3 grid layout
 grid_layout <- rug_layout_map(mock_matrix, n_rows = 2, n_cols = 3)

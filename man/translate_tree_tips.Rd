@@ -2,33 +2,32 @@
 % Please edit documentation in R/translate_tree_tips.R
 \name{translate_tree_tips}
 \alias{translate_tree_tips}
-\title{Translate Tip Labels of a Phylogenetic Tree}
+\title{Translate tip labels of a phylogenetic tree}
 \usage{
 translate_tree_tips(phy, data, from_col = "from", to_col = "to")
 }
 \arguments{
-\item{phy}{A phylogenetic tree object of class \code{"phylo"}.}
+\item{phy}{A phylogenetic tree object of class \code{phylo}.}
 
-\item{data}{A data frame containing the label translation lookup table.
-Can be a standard \code{data.frame} or a \code{tibble}.}
+\item{data}{A data frame containing the label translation lookup table. Can
+be a standard \code{data.frame} or a \code{tibble}.}
 
-\item{from_col}{A character string specifying the column name in \code{data}
-that holds the current tip labels of the tree. Defaults to \code{"from"}.}
+\item{from_col}{A character string specifying the column name in \code{data} that
+holds the current tip labels of the tree. Defaults to \code{from}.}
 
-\item{to_col}{A character string specifying the column name in \code{data}
-that holds the new desired replacement labels. Defaults to \code{"to"}.}
+\item{to_col}{A character string specifying the column name in \code{data} that
+holds the new desired replacement labels. Defaults to \code{to}.}
 }
 \value{
-An updated phylogenetic tree object of class \code{"phylo"} with matching
+An updated phylogenetic tree object of class \code{phylo} with matching
 tip labels translated. The tree topology and edge lengths remain unchanged.
 }
 \description{
-Renames the terminal tip labels of a phylogenetic tree using a
-lookup table supplied as a data frame. Only tips matching entries
-in \code{from_col} are renamed — unmatched tips are left unchanged.
-Both \code{from_col} and \code{to_col} must be character columns
-not factors, and a summary message reports how many tips were
-translated.
+Renames the terminal tip labels of a phylogenetic tree using a lookup table
+supplied as a data frame. Only tips matching entries in \code{from_col} are
+renamed — unmatched tips are left unchanged. Both \code{from_col} and \code{to_col}
+must be character columns not factors, and a summary message reports how many
+tips were translated.
 }
 \examples{
 \dontrun{
@@ -43,6 +42,9 @@ dict <- data.frame(
 )
 
 # Translate tips
-clean_tree <- translate_tree_tips(tree, dict, from_col = "from", to_col = "to")
+clean_tree <- translate_tree_tips(tree,
+                                  dict,
+                                  from_col = "from",
+                                  to_col   = "to")
 }
 }

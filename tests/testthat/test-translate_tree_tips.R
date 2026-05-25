@@ -1,4 +1,3 @@
-# tests/testthat/test-translate_tree_tips.R
 # Tests for translate_tree_tips()
 
 # ---- helper -----------------------------------------------------------------
@@ -28,7 +27,8 @@ test_that("stops when phy is not a phylo object", {
 
 test_that("stops when data is not a data frame", {
   expect_error(
-    translate_tree_tips(make_test_tree(), list(from = "sp1", to = "Species_one")),
+    translate_tree_tips(make_test_tree(),
+                        list(from = "sp1", to = "Species_one")),
     "must be a data frame"
   )
 })

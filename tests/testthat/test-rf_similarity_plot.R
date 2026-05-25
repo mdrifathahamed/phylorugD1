@@ -1,17 +1,16 @@
-# tests/testthat/test-rf_similarity_plot.R
 # Tests for rf_similarity_plot()
 
 # ---- helper -----------------------------------------------------------------
 
 make_multi_phylo <- function(n_trees = 3, n_tips = 6, seed = 1) {
   set.seed(seed)
-  tips <- paste0("Taxon_", 1:n_tips)
+  tips  <- paste0("Taxon_", seq_len(n_tips))
   trees <- replicate(
     n_trees,
     ape::unroot(ape::rtree(n_tips, tip.label = tips)),
     simplify = FALSE
   )
-  names(trees) <- paste0("Tree_", 1:n_trees)
+  names(trees) <- paste0("Tree_", seq_len(n_trees))
   class(trees) <- "multiPhylo"
   trees
 }

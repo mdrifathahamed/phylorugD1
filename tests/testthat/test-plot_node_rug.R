@@ -1,12 +1,9 @@
-# tests/testthat/test-plot_node_rug.R
 # Tests for plot_node_rug()
 
 # ---- helper -----------------------------------------------------------------
-
 make_test_tree <- function() {
   set.seed(1)
-  tree <- ape::rtree(5)
-  tree
+  ape::rtree(5)
 }
 
 make_test_rug_mt <- function(tree) {
@@ -59,7 +56,8 @@ test_that("stops when rug_mt is not a matrix or data frame", {
 test_that("returns invisible NULL", {
   tree   <- make_test_tree()
   rug_mt <- make_test_rug_mt(tree)
-  ape::plot.phylo(tree)    # must plot first to populate .PlotPhyloEnv
+  # Must plot first to populate ape::.PlotPhyloEnv with node coordinates
+  ape::plot.phylo(tree)
   result <- plot_node_rug(
     tree         = tree,
     rug_mt       = rug_mt,

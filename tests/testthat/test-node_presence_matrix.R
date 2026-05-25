@@ -1,13 +1,9 @@
-# tests/testthat/test-node_presence_matrix.R
 # Tests for node_presence_matrix()
 
 # ---- helper -----------------------------------------------------------------
 
 make_shared_tree <- function() {
-  tree <- ape::read.tree(
-    text = "(((A,B),C),(D,E));"
-  )
-  tree
+  ape::read.tree(text = "(((A,B),C),(D,E));")
 }
 
 make_tree_list <- function() {
@@ -35,8 +31,11 @@ test_that("stops when trees is not a list", {
 
 test_that("stops when support_col is not 1 or 2", {
   expect_error(
-    node_presence_matrix(make_shared_tree(), make_tree_list(),
-                         support_col = 3),
+    node_presence_matrix(
+      make_shared_tree(),
+      make_tree_list(),
+      support_col = 3
+    ),
     "`support_col` must be 1 or 2"
   )
 })
@@ -46,8 +45,8 @@ test_that("stops when support_col is not 1 or 2", {
 test_that("returns matrix with correct dimensions", {
   result <- node_presence_matrix(make_shared_tree(), make_tree_list())
   expect_true(is.matrix(result))
-  expect_equal(ncol(result), 3 )   # node_id + 2 trees
-  expect_equal(nrow(result), 4)   # internal nodes of a 5-tip tree
+  expect_equal(ncol(result), 3)
+  expect_equal(nrow(result), 4)
 })
 
 # ---- correct values ---------------------------------------------------------
@@ -57,7 +56,7 @@ test_that("returns 1 for matching clades and 0 for absent clades", {
   tree_list <- make_tree_list()
   result    <- node_presence_matrix(backbone, tree_list)
 
-  # tree1 is identical to backbone — all clades should be present
+  # tree1 is identical to backbone -- all clades should be present
   expect_true(all(result[, "tree1"] %in% c(0, 1)))
 
   # node_id column should contain integers
