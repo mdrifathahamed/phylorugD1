@@ -1,4 +1,4 @@
-# Translate Tip Labels of a Phylogenetic Tree
+# Translate tip labels of a phylogenetic tree
 
 Renames the terminal tip labels of a phylogenetic tree using a lookup
 table supplied as a data frame. Only tips matching entries in `from_col`
@@ -16,7 +16,7 @@ translate_tree_tips(phy, data, from_col = "from", to_col = "to")
 
 - phy:
 
-  A phylogenetic tree object of class `"phylo"`.
+  A phylogenetic tree object of class `phylo`.
 
 - data:
 
@@ -26,16 +26,16 @@ translate_tree_tips(phy, data, from_col = "from", to_col = "to")
 - from_col:
 
   A character string specifying the column name in `data` that holds the
-  current tip labels of the tree. Defaults to `"from"`.
+  current tip labels of the tree. Defaults to `from`.
 
 - to_col:
 
   A character string specifying the column name in `data` that holds the
-  new desired replacement labels. Defaults to `"to"`.
+  new desired replacement labels. Defaults to `to`.
 
 ## Value
 
-An updated phylogenetic tree object of class `"phylo"` with matching tip
+An updated phylogenetic tree object of class `phylo` with matching tip
 labels translated. The tree topology and edge lengths remain unchanged.
 
 ## Examples
@@ -53,6 +53,9 @@ dict <- data.frame(
 )
 
 # Translate tips
-clean_tree <- translate_tree_tips(tree, dict, from_col = "from", to_col = "to")
+clean_tree <- translate_tree_tips(tree,
+                                  dict,
+                                  from_col = "from",
+                                  to_col   = "to")
 } # }
 ```

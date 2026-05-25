@@ -15,6 +15,6 @@
   : Map and Plot Multidimensional Tree Similarity from Robinson-Foulds
   Distances
 - [`rug_layout_map()`](https://mdrifathahamed.github.io/phylorugD1/reference/rug_layout_map.md)
-  : Map Phylogenetic Trees to Grid Cell Coordinates for Rug Plots
+  : Map phylogenetic trees to grid cell coordinates for rug plots
 - [`translate_tree_tips()`](https://mdrifathahamed.github.io/phylorugD1/reference/translate_tree_tips.md)
-  : Translate Tip Labels of a Phylogenetic Tree
+  : Translate tip labels of a phylogenetic tree

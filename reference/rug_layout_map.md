@@ -1,4 +1,4 @@
-# Map Phylogenetic Trees to Grid Cell Coordinates for Rug Plots
+# Map phylogenetic trees to grid cell coordinates for rug plots
 
 Transforms a wide node-support matrix into a long-format data frame
 containing the specific row, column, and sequential index positions for
@@ -59,7 +59,8 @@ columns:
 
 ``` r
 if (FALSE) { # \dontrun{
-# Example support matrix for 3 reference nodes across 5 alternative tree analyses
+# Example support matrix for 3 nodes across 5 alternative analyses
+
 mock_matrix <- matrix(
   c(
     10, 1, 0.95, 0.80, 1, 0,
@@ -68,7 +69,9 @@ mock_matrix <- matrix(
   ),
   nrow = 3, byrow = TRUE
 )
-colnames(mock_matrix) <- c("node_id", "TreeA", "TreeB", "TreeC", "TreeD", "TreeE")
+colnames(mock_matrix) <- c(
+  "node_id", "TreeA", "TreeB", "TreeC", "TreeD", "TreeE"
+)
 
 # Map the positions onto a 2x3 grid layout
 grid_layout <- rug_layout_map(mock_matrix, n_rows = 2, n_cols = 3)
