@@ -1,6 +1,6 @@
 Package: phylorugD1
-Title:Visualize Node Support Across Multiple Phylogenomic Analyses
-Version:0.1.0
+Title: Visualize Node Support Across Multiple Phylogenomic Analyses
+Version: 0.1.0
 Authors@R:
     c(
       person(
@@ -18,7 +18,7 @@ Authors@R:
         comment = c(ORCID = "0000-0002-1737-9403")
       )
     )
-Description:Provides functions to visualise node support values from
+Description: Provides functions to visualise node support values from
     multiple independent phylogenomic analyses simultaneously on a
     single reference tree using the rug plot method. Although
     researchers routinely run multiple phylogenomic analyses,
@@ -44,3 +44,4 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr

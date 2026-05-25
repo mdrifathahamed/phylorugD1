@@ -6,3 +6,6 @@
 .quarto
 .positai
 docs
+inst/doc
+/doc/
+/Meta/
