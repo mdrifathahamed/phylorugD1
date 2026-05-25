@@ -4,15 +4,15 @@
 
 Phylogenomic studies routinely produce multiple trees from different
 methods and datasets. When researchers analyse the same set of taxa
-using IQ-TREE, GHOST, and ASTRAL — or using different data types such as
-Ultraconserved Elements (UCEs) and partitioned sequence data — they
+using IQ-TREE, GHOST, and ASTRAL – or using different data types such as
+Ultraconserved Elements (UCEs) and partitioned sequence data – they
 often obtain slightly different topologies or different levels of node
 support. This disagreement between analyses is called **incongruence**
 (Steenwyk et al. 2023).
 
 The problem is not that incongruence exists. The problem is
-communicating it honestly. Current practice is to publish one tree —
-usually the maximum likelihood tree — and move everything else to
+communicating it honestly. Current practice is to publish one tree –
+usually the maximum likelihood tree – and move everything else to
 supplementary materials. A reader looking at the published figure cannot
 tell which nodes are robust across all five analyses and which nodes are
 contested. This is a transparency problem.
@@ -21,11 +21,10 @@ contested. This is a transparency problem.
 
 The rug plot method addresses this by drawing a compact colour-coded
 grid at each internal node of a backbone tree. Each cell in the grid
-represents one alternative analysis, shaded from white (clade absent or
-no support) to black (full support). Nodes supported unanimously by all
-analyses are shown as a solid dot — maximally clean. Nodes where
-analyses disagree show a mixed grid that a reader can interpret at a
-glance.
+represents one alternative analysis, shaded from white (clade absent) to
+black (clade present). Nodes supported unanimously by all analyses are
+shown as a solid black dot – maximally clean. Nodes where analyses
+disagree show a mixed grid that a reader can interpret at a glance.
 
 The method was first introduced by Wheeler (1995) under the name *space
 plots*, later called *Navajo rugs* (Giribet 2003) and *topological
@@ -71,14 +70,14 @@ Helsinki. Five analyses were performed:
 | ASTRAL UCE          | Coalescent         | UCE         |
 | ASTRAL partitioned  | Coalescent         | Partitioned |
 
-The IQ-TREE UCE tree is used as the backbone — the most data-rich, most
+The IQ-TREE UCE tree is used as the backbone – the most data-rich, most
 methodologically standard analysis. The other four are comparison trees.
 
 ------------------------------------------------------------------------
 
 ## Step-by-step pipeline
 
-### Step 1 — Read raw trees
+### Step 1 – Read raw trees
 
 [`read_trees_from_dir()`](https://mdrifathahamed.github.io/phylorugD1/reference/read_trees_from_dir.md)
 reads all tree files from a folder into a named list of `phylo` objects.
@@ -102,21 +101,24 @@ names(raw_trees)
 # [5] "70p_uce.tre"
 ```
 
-### Step 2 — Root before translating
+### Step 2 – Root before translating
 
-The outgroup species must be removed before translation because their
-tip labels are still in raw specimen code format at this stage.
+The outgroup must be rooted using raw specimen codes before translation.
+After translation the raw codes no longer exist and
+[`root()`](https://rdrr.io/pkg/ape/man/root.html) cannot find them.
 
 ``` r
 
 rooted_trees <- lapply(raw_trees, function(tr) {
-  root(tr,
-       outgroup     = c("NicorbUCE", "NicvesUCE"),
-       resolve.root = TRUE)
+  root(
+    tr,
+    outgroup     = c("NicorbUCE", "NicvesUCE"),
+    resolve.root = TRUE
+  )
 })
 ```
 
-### Step 3 — Translate tip labels
+### Step 3 – Translate tip labels
 
 [`translate_tree_tips()`](https://mdrifathahamed.github.io/phylorugD1/reference/translate_tree_tips.md)
 renames tip labels from museum specimen codes to full species names
@@ -141,7 +143,7 @@ head(translated_trees[[1]]$tip.label)
 # [2] "Coptodactyla_brooksi_CopbroUCE"
 ```
 
-### Step 4 — Extract the ingroup
+### Step 4 – Extract the ingroup
 
 The outgroup is removed using `phytools::findMRCA()` to locate the most
 recent common ancestor of the ingroup, then
@@ -165,7 +167,7 @@ Ntip(processed_trees[[1]])
 # [1] 289
 ```
 
-### Step 5 — Validate taxa
+### Step 5 – Validate taxa
 
 [`check_same_taxa()`](https://mdrifathahamed.github.io/phylorugD1/reference/check_same_taxa.md)
 confirms that all five trees share exactly the same 289 taxa before any
@@ -174,11 +176,11 @@ downstream analysis. This must return `TRUE` before continuing.
 ``` r
 
 check_same_taxa(processed_trees)
-# ✅ All trees contain the same set of taxa.
+# All trees contain the same set of taxa.
 # [1] TRUE
 ```
 
-### Step 6 — Define backbone and comparison trees
+### Step 6 – Define backbone and comparison trees
 
 ``` r
 
@@ -192,7 +194,7 @@ tree_list <- processed_trees[c(
 )]
 ```
 
-### Step 7 — Build the node presence matrix
+### Step 7 – Build the node presence matrix
 
 [`node_presence_matrix()`](https://mdrifathahamed.github.io/phylorugD1/reference/node_presence_matrix.md)
 is the core function. For each of the 288 internal nodes in the backbone
@@ -220,15 +222,14 @@ head(rug_mt)
 # [3,]     292            1          0               1               1
 ```
 
-Node 292 is a real biological result. The clade at that node exists in
-IQ-TREE partitioned, both ASTRAL analyses, but not in GHOST. This is
-topological incongruence — a genuine disagreement between methods about
-whether those species form a group.
+Node 292 shows a real biological result. The clade exists in IQ-TREE
+partitioned and both ASTRAL analyses but not in GHOST. This is
+topological incongruence – a genuine disagreement between methods.
 
-### Step 8 — Build the grid layout
+### Step 8 – Build the grid layout
 
 [`rug_layout_map()`](https://mdrifathahamed.github.io/phylorugD1/reference/rug_layout_map.md)
-assigns each analysis to a fixed position in the 2×2 grid. The layout is
+assigns each analysis to a fixed position in the 2x2 grid. The layout is
 the same at every node across the entire tree, so a reader can learn it
 once and interpret the whole figure.
 
@@ -242,137 +243,162 @@ nrow(layout_df)
 
 The grid positions are:
 
-    ┌───────────────────┬──────────────────────┐
-    │ IQ-TREE part      │  GHOST part          │
-    ├───────────────────┼──────────────────────┤
-    │ ASTRAL UCE        │  ASTRAL part         │
-    └───────────────────┴──────────────────────┘
+    IQ-TREE partitioned | GHOST partitioned
+    ASTRAL UCE          | ASTRAL partitioned
 
-### Step 9 — RF similarity plot
+### Step 9 – RF similarity plot
 
 [`rf_similarity_plot()`](https://mdrifathahamed.github.io/phylorugD1/reference/rf_similarity_plot.md)
 computes the Robinson-Foulds distance between every pair of trees and
 projects the result into 2D using Multidimensional Scaling (MDS). Trees
-close together in the plot have similar topologies. Trees far apart
-disagree substantially.
+close together have similar topologies. Trees far apart disagree
+substantially.
 
 ``` r
 
 all_trees        <- processed_trees
-names(all_trees) <- c("ASTRAL_part", "ASTRAL_uce",
-                      "GHOST", "IQTREE_part", "IQTREE_uce")
+names(all_trees) <- c(
+  "ASTRAL_part",
+  "ASTRAL_uce",
+  "GHOST",
+  "IQTREE_part",
+  "IQTREE_uce"
+)
 class(all_trees) <- "multiPhylo"
+
+rf_mt <- as.matrix(dist.topo(all_trees, method = "PH85"))
+print(rf_mt)
 
 rf_similarity_plot(all_trees)
 ```
 
-### Step 10 — Draw the rug plot
+### Step 10 – Draw the rug plot
 
 [`plot_node_rug()`](https://mdrifathahamed.github.io/phylorugD1/reference/plot_node_rug.md)
 must be called after
-[`plot.phylo()`](https://rdrr.io/pkg/ape/man/plot.phylo.html) — it reads
-node coordinates from the active plot environment and draws the rug grid
-at each uncertain node.
+[`plot.phylo()`](https://rdrr.io/pkg/ape/man/plot.phylo.html). It reads
+node coordinates from the active plot environment and draws a 2x2 rug
+grid at each uncertain node. Nodes where all four analyses agree are
+shown as a solid black dot.
+
+The key parameter is `n_cols = 2` which produces a clean 2x2 grid
+exactly matching the four comparison analyses.
 
 ``` r
 
-# Colour palette: white = absent, black = full support
+# Colour palette: white = absent, black = present
 pal_info        <- list()
 pal_info$pal    <- gray.colors(64, start = 0.95, end = 0.00)
 pal_info$breaks <- seq(0, 1, length.out = 64)
 
 map_to_color <- function(val, pal_info) {
-  if (val == 0) return("white")
-  pal_info$pal[cut(val, breaks = pal_info$breaks,
-                   include.lowest = TRUE)]
+  if (val == 0) {
+    "white"
+  } else {
+    pal_info$pal[cut(
+      val,
+      breaks         = pal_info$breaks,
+      include.lowest = TRUE
+    )]
+  }
 }
 
-# Split nodes
-rug_mt_variable <- rug_mt[
-  !apply(
-    rug_mt[, -1, drop = FALSE],
-    1,
-    function(x) all(x == 1)
-  ), , drop = FALSE
-]
-
+# Split nodes into unanimous and variable
 rug_mt_unanimous <- rug_mt[
-  apply(
-    rug_mt[, -1, drop = FALSE],
-    1,
-    function(x) all(x == 1)
-  ), , drop = FALSE
+  apply(rug_mt[, -1, drop = FALSE], 1, function(x) all(x == 1)),
+  , drop = FALSE
 ]
-# Plot backbone tree
-plot.phylo(backbone, show.tip.label = TRUE, cex = 0.4,
-           label.offset = 0.001, no.margin = TRUE, edge.width = 1.5)
 
-# Solid dots at unanimous nodes
+rug_mt_variable <- rug_mt[
+  !apply(rug_mt[, -1, drop = FALSE], 1, function(x) all(x == 1)),
+  , drop = FALSE
+]
+
+# Save to PDF
+pdf("output/rug_plot_70p.pdf", width = 8.27 * 2, height = 11.69 * 5)
+
+# 1. Plot backbone tree
+plot.phylo(
+  backbone,
+  show.tip.label = TRUE,
+  cex            = 0.8,
+  label.offset   = 0.001,
+  no.margin      = TRUE,
+  edge.width     = 2
+)
+
+# 2. Solid dots at unanimous nodes
 last_pp  <- get("last_plot.phylo", envir = ape::.PlotPhyloEnv)
 node_ids <- rug_mt_unanimous[, 1]
-points(last_pp$xx[node_ids], last_pp$yy[node_ids],
-       pch = 16, cex = 0.6, col = "black")
 
-# Compute cell size
+points(
+  last_pp$xx[node_ids],
+  last_pp$yy[node_ids],
+  pch = 16,
+  cex = 1.2,
+  col = "black"
+)
+
+# 3. Compute cell dimensions
+pin        <- par("pin")
 dy         <- median(diff(sort(last_pp$yy[1:Ntip(backbone)])))
-x_per_inch <- diff(last_pp$x.lim) / par("pin")[1]
-y_per_inch <- diff(last_pp$y.lim) / par("pin")[2]
-cell_h     <- dy * 0.18
+x_per_inch <- diff(last_pp$x.lim) / pin[1]
+y_per_inch <- diff(last_pp$y.lim) / pin[2]
+cell_h     <- dy * 0.5
 cell_w     <- cell_h * (x_per_inch / y_per_inch)
 
-# Draw rug grid
+# 4. Draw rug grid -- n_cols = 2 for clean 2x2 layout
 plot_node_rug(
   tree         = backbone,
   rug_mt       = rug_mt_variable,
   cell_h       = cell_h,
   cell_w       = cell_w,
-  x_offset     = 0.04,
-  y_offset     = 0,
+  x_offset     = -0.0095,
+  y_offset     = 0.0023,
   map_to_color = map_to_color,
-  pal_info     = pal_info
+  pal_info     = pal_info,
+  n_cols       = 2
 )
+
+dev.off()
 ```
 
 ------------------------------------------------------------------------
 
 ## Reading the output
 
-**Solid black dot** — all four comparison analyses support this node
-with maximum support. The node is robust. No further investigation
-needed.
+**Solid black dot** – all four comparison analyses support this node.
+The node is robust across all methods.
 
-**Coloured grid** — at least one analysis differs. Read the grid:
+**2x2 coloured grid** – at least one analysis differs. Read the grid:
 
-    ┌──────────────┬──────────────┐
-    │ IQ-TREE part │  GHOST part  │
-    ├──────────────┼──────────────┤
-    │  ASTRAL UCE  │ ASTRAL part  │
-    └──────────────┴──────────────┘
+    IQ-TREE partitioned | GHOST partitioned
+    ASTRAL UCE          | ASTRAL partitioned
 
-- **Black cell** — clade present and fully supported in this analysis
-- **White cell** — clade absent from this analysis entirely
-- **Grey cell** — clade present but with partial support (when
-  `use_support = TRUE`)
+- **Black cell** – clade present in this analysis
+- **White cell** – clade absent from this analysis entirely
 
 A node where IQ-TREE cells are black but ASTRAL cells are white means
-the maximum likelihood and coalescent methods disagree. This is
-biologically meaningful — it may indicate incomplete lineage sorting or
-rapid diversification at that node.
+the maximum likelihood and coalescent methods disagree. This may
+indicate incomplete lineage sorting or rapid diversification at that
+node.
 
 ------------------------------------------------------------------------
 
 ## Tuning the figure
 
-Two parameters control the visual appearance:
+Four parameters control the visual appearance:
 
 ``` r
 
-cell_h <- dy * 0.18   # increase for bigger cells, decrease for smaller
-x_offset <- 0.04      # increase to move right, decrease to move left
+cell_h   <- dy * 0.5    # increase for bigger cells, decrease for smaller
+x_offset <- -0.0095     # more negative = further left into branch
+y_offset <- 0.0023      # increase to shift grids up
+n_cols   <- 2           # always 2 for 4 analyses (2x2 grid)
 ```
 
-For large trees (200+ taxa) we recommend saving to PDF with `width = 16`
-and `height = 40` to give each node enough space.
+For large trees (200+ taxa) save to PDF with `width = 8.27 * 2` and
+`height = 11.69 * 5` to give each node enough space.
 
 ------------------------------------------------------------------------
 
