@@ -17,44 +17,45 @@ plot_node_rug(
 )
 }
 \arguments{
-\item{tree}{An object of class \code{"phylo"} representing the reference topology
-rendered on the active graphics device.}
+\item{tree}{An object of class \code{"phylo"} representing the reference
+topology rendered on the active graphics device.}
 
-\item{rug_mt}{A matrix or data frame where the first column corresponds to the
-backbone \code{node_id} sequence, and subsequent columns contain numeric support
-values for each comparison tree.}
+\item{rug_mt}{A matrix or data frame where the first column corresponds to
+the backbone \code{node_id} sequence, and subsequent columns contain
+numeric support values for each comparison tree.}
 
-\item{cell_h}{A numeric value specifying the geometric height of each individual
-grid sub-cell in plotting coordinate space.}
+\item{cell_h}{A numeric value specifying the geometric height of each
+individual grid sub-cell in plotting coordinate space.}
 
-\item{cell_w}{A numeric value specifying the geometric width of each individual
-grid sub-cell in plotting coordinate space.}
+\item{cell_w}{A numeric value specifying the geometric width of each
+individual grid sub-cell in plotting coordinate space.}
 
-\item{x_offset}{A numeric scalar multiplier used to shift the grid horizontally
-away from the node vertex. Expressed relative to the tree's maximum horizontal width.
-Default is \code{0.02}.}
+\item{x_offset}{A numeric scalar multiplier used to shift the grid
+horizontally away from the node vertex. Expressed relative to the tree's
+maximum horizontal width. Default is \code{0.02}.}
 
 \item{y_offset}{A numeric scalar multiplier used to shift the grid vertically
-away from the node vertex. Expressed relative to the tree's maximum vertical height.
-Default is \code{0}.}
+away from the node vertex. Expressed relative to the tree's maximum
+vertical height. Default is \code{0}.}
 
-\item{map_to_color}{A function that accepts a numeric support value alongside a
-palette details object and outputs a valid character color string.}
+\item{map_to_color}{A function that accepts a numeric support value alongside
+a palette details object and outputs a valid character color string.}
 
-\item{pal_info}{A configuration object (such as a list) storing custom color keys,
-value breaks, or mapping criteria requested by \code{map_to_color}.}
+\item{pal_info}{A configuration object (such as a list) storing custom color
+keys, value breaks, or mapping criteria requested by \code{map_to_color}.}
 
-\item{n_cols}{An integer specifying the number of horizontal columns inside the
-individual rug plot grid layout. Default is \code{3}.}
+\item{n_cols}{An integer specifying the number of horizontal columns inside
+the individual rug plot grid layout. Default is \code{3}.}
 }
 \value{
-Invoked exclusively for its side-effect of rendering geometric shapes onto
-the active plot window. Returns \code{NULL} invisibly.
+Invoked exclusively for its side-effect of rendering geometric shapes
+onto the active plot window. Returns \code{NULL} invisibly.
 }
 \description{
-Superimposes compact color-coded grid sub-cells ("rug plots") onto the internal
-branching nodes of a previously plotted phylogenetic tree. This provides a clear,
-multi-analysis visual representation of statistical node support values.
+Superimposes compact color-coded grid sub-cells ("rug plots") onto the
+internal branching nodes of a previously plotted phylogenetic tree. This
+provides a clear, multi-analysis visual representation of statistical node
+support values.
 }
 \examples{
 \dontrun{

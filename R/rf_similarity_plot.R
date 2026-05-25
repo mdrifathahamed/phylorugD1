@@ -1,9 +1,10 @@
 #' Map and Plot Multidimensional Tree Similarity from Robinson-Foulds Distances
 #'
-#' Calculates the symmetric topological Robinson-Foulds (RF) distance between pairs
-#' of input trees, projects their structural proximity patterns onto a lower-dimensional
-#' continuous plane using Classical Multidimensional Scaling (MDS), and renders a
-#' labeled ordination scatter plot on the current graphics device.
+#' Calculates the symmetric topological Robinson-Foulds (RF) distance between
+#' pairs of input trees, projects their structural proximity patterns onto a
+#' lower-dimensional continuous plane using Classical Multidimensional Scaling
+#' (MDS), and renders a labeled ordination scatter plot on the current graphics
+#' device.
 #'
 #' @param trees An object of class \code{"multiPhylo"} containing a list of
 #'   independent phylogenetic trees sharing an identical terminal leaf-set.
@@ -24,9 +25,13 @@
 #'
 #' # Generate a list of 5 mock random trees with identical tip labels
 #' set.seed(42)
-#' mock_trees <- replicate(5, ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
+#'
+#' mock_trees <- replicate(
+#'   5,
+#'   ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
 #'   simplify = FALSE
 #' )
+#'
 #' class(mock_trees) <- "multiPhylo"
 #' names(mock_trees) <- paste0("Analysis_", 1:5)
 #'
@@ -35,10 +40,11 @@
 #' }
 rf_similarity_plot <- function(trees,
                                method = "PH85",
-                               k = 2) {
+                               k      = 2) {
   # Validate input
   if (!inherits(trees, "multiPhylo")) {
-    stop("`trees` must be an object of class \"multiPhylo\".",
+    stop(
+      "`trees` must be an object of class \"multiPhylo\".",
       call. = FALSE
     )
   }

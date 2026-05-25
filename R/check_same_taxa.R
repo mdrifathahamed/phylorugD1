@@ -1,14 +1,16 @@
 #' Check Taxa Consistency Across Multiple Phylogenetic Trees
 #'
-#' Compares a list of phylogenetic trees against a reference tree (the first tree in the list)
-#' to ensure that all trees contain the exact same set of taxa (tip labels). If discrepancies
-#' are found, detailed diagnostic reports listing missing and extra taxa are provided.
+#' Compares a list of phylogenetic trees against a reference tree
+#' (the first tree in the list) to ensure that all trees contain the exact same
+#' set of taxa (tip labels). If discrepancies are found, detailed diagnostic
+#' reports listing missing and extra taxa are provided.
 #'
-#' @param tree_list A list of phylogenetic tree objects of class \code{"phylo"}, or a
-#'   multiPhylo object containing the trees to be compared.
+#' @param tree_list A list of phylogenetic tree objects of class \code{"phylo"},
+#'  or a multiPhylo object containing the trees to be compared.
 #'
-#' @param verbose Logical. If \code{TRUE} (default), detailed status messages and diagnostic
-#'   reports for mismatched trees are printed to the console using \code{\link[base]{message}}.
+#' @param verbose Logical. If \code{TRUE} (default), detailed status messages
+#' and diagnostic reports for mismatched trees are printed to the console using
+#'  \code{\link[base]{message}}.
 #'
 #'
 #' @return A single logical value. \code{TRUE} if all trees contain

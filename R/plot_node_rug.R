@@ -1,42 +1,42 @@
 #' Plot Node Rug Grids Over a Phylogenetic Canvas
 #'
-#' Superimposes compact color-coded grid sub-cells ("rug plots") onto the internal
-#' branching nodes of a previously plotted phylogenetic tree. This provides a clear,
-#' multi-analysis visual representation of statistical node support values.
+#' Superimposes compact color-coded grid sub-cells ("rug plots") onto the
+#' internal branching nodes of a previously plotted phylogenetic tree. This
+#' provides a clear, multi-analysis visual representation of statistical node
+#' support values.
 #'
-#' @param tree An object of class \code{"phylo"} representing the reference topology
-#'   rendered on the active graphics device.
+#' @param tree An object of class \code{"phylo"} representing the reference
+#'   topology rendered on the active graphics device.
 #'
-#' @param rug_mt A matrix or data frame where the first column corresponds to the
-#'   backbone \code{node_id} sequence, and subsequent columns contain numeric support
-#'   values for each comparison tree.
+#' @param rug_mt A matrix or data frame where the first column corresponds to
+#'   the backbone \code{node_id} sequence, and subsequent columns contain
+#'   numeric support values for each comparison tree.
 #'
-#' @param cell_h A numeric value specifying the geometric height of each individual
-#'   grid sub-cell in plotting coordinate space.
+#' @param cell_h A numeric value specifying the geometric height of each
+#'   individual grid sub-cell in plotting coordinate space.
 #'
-#' @param cell_w A numeric value specifying the geometric width of each individual
-#'   grid sub-cell in plotting coordinate space.
+#' @param cell_w A numeric value specifying the geometric width of each
+#'   individual grid sub-cell in plotting coordinate space.
 #'
-#' @param x_offset A numeric scalar multiplier used to shift the grid horizontally
-#'   away from the node vertex. Expressed relative to the tree's maximum horizontal width.
-#'   Default is \code{0.02}.
+#' @param x_offset A numeric scalar multiplier used to shift the grid
+#'   horizontally away from the node vertex. Expressed relative to the tree's
+#'   maximum horizontal width. Default is \code{0.02}.
 #'
 #' @param y_offset A numeric scalar multiplier used to shift the grid vertically
-#'   away from the node vertex. Expressed relative to the tree's maximum vertical height.
-#'   Default is \code{0}.
+#'   away from the node vertex. Expressed relative to the tree's maximum
+#'   vertical height. Default is \code{0}.
 #'
-#' @param map_to_color A function that accepts a numeric support value alongside a
-#'   palette details object and outputs a valid character color string.
+#' @param map_to_color A function that accepts a numeric support value alongside
+#'   a palette details object and outputs a valid character color string.
 #'
-#' @param pal_info A configuration object (such as a list) storing custom color keys,
-#'   value breaks, or mapping criteria requested by \code{map_to_color}.
+#' @param pal_info A configuration object (such as a list) storing custom color
+#'   keys, value breaks, or mapping criteria requested by \code{map_to_color}.
 #'
-#' @param n_cols An integer specifying the number of horizontal columns inside the
-#'   individual rug plot grid layout. Default is \code{3}.
+#' @param n_cols An integer specifying the number of horizontal columns inside
+#'   the individual rug plot grid layout. Default is \code{3}.
 #'
-#' @return Invoked exclusively for its side-effect of rendering geometric shapes onto
-#'   the active plot window. Returns \code{NULL} invisibly.
-#'
+#' @return Invoked exclusively for its side-effect of rendering geometric shapes
+#'   onto the active plot window. Returns \code{NULL} invisibly.
 #'
 #' @export
 #'
@@ -93,10 +93,10 @@ plot_node_rug <- function(tree, rug_mt,
     stop("`rug_mt` must be a matrix or data frame.", call. = FALSE)
   }
 
-  lastPP <- get("last_plot.phylo", envir = ape::.PlotPhyloEnv)
+  last_pp <- get("last_plot.phylo", envir = ape::.PlotPhyloEnv)
 
-  dx_offset <- max(lastPP$xx) * x_offset
-  dy_offset <- max(lastPP$yy) * y_offset
+  dx_offset <- max(last_pp$xx) * x_offset
+  dy_offset <- max(last_pp$yy) * y_offset
 
   n_nodes <- nrow(rug_mt)
   n_cells <- ncol(rug_mt) - 1
@@ -110,8 +110,8 @@ plot_node_rug <- function(tree, rug_mt,
     node_id <- rug_mt[i, 1]
     vals <- as.numeric(rug_mt[i, -1])
 
-    x_center <- lastPP$xx[node_id] + dx_offset
-    y_center <- lastPP$yy[node_id] + dy_offset
+    x_center <- last_pp$xx[node_id] + dx_offset
+    y_center <- last_pp$yy[node_id] + dy_offset
 
     x0 <- x_center - total_w / 2
     y0 <- y_center + total_h / 2

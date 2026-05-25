@@ -1,21 +1,20 @@
-#' Reads Multiple Phylogenetic Trees from a Directory
+#' Read multiple phylogenetic trees from a directory
 #'
 #' Searches a specified directory for phylogenetic tree files with a matching
-#' file extension and imports them into R as a list of tree objects.
-#' It supports both Newick and NEXUS formats by wrapping the corresponding ape package functions.
-#' The resulting list elements are automatically named using the base names of their respective
-#' files for easy tracking.
+#' file extension and imports them into R as a named list of tree objects.
+#' Supports both Newick and NEXUS formats.
 #'
-#' @param dir Character string. The path to the directory containing the tree files.
+#' @param dir Character string. Path to the directory containing the tree files.
 #'
-#' @param ext Character string. The file extension to search for (without the
-#' leading dot). Defaults to \code{"tre"}.
+#' @param ext Character string. File extension to search for, without the
+#'  leading dot. Defaults to `"tre"`.
 #'
-#' @param format Character string. The file format of the trees, either \code{"newick"}
-#' or \code{"nexus"}. Defaults to \code{"newick"}.
+#' @param format Character string. File format of the trees, either`"newick"` or
+#'  `"nexus"`. Defaults to `"newick"`.
 #'
-#' @return A named list of objects of class \code{"phylo"}. Each element
-#'   is one tree. List names are the filenames the trees were read from.
+#' @return A named list of objects of class `"phylo"`. List names are the
+#'  filenames the trees were read from. Elements for files that could not be
+#'  read are set to `NULL`.
 #'
 #' @export
 #'
@@ -28,7 +27,7 @@
 #' )
 #' }
 read_trees_from_dir <- function(dir,
-                                ext = "tre",
+                                ext    = "tre",
                                 format = c("newick", "nexus")) {
   format <- match.arg(format)
 
@@ -45,19 +44,17 @@ read_trees_from_dir <- function(dir,
   )
 
   if (length(files) == 0) {
-    stop(
-      "No .", ext, " files found in: ", dir,
-      call. = FALSE
-    )
+    stop("No .", ext, " files found in: ", dir, call. = FALSE)
   }
 
-  # Select reader function
-  reader <- switch(format,
+  # Select reader function based on format
+  reader <- switch(
+    format,
     newick = ape::read.tree,
     nexus  = ape::read.nexus
   )
 
-  # Read each file, warn and return NULL if a file fails
+  # Read each file; warn and return NULL if a file fails
   trees <- lapply(files, function(f) {
     tryCatch(
       suppressWarnings(reader(f)),
@@ -68,10 +65,10 @@ read_trees_from_dir <- function(dir,
     )
   })
 
-  # Name list elements
+  # Name list elements by filename
   names(trees) <- basename(files)
 
-  # Report how many files failed
+  # Report how many files failed to read
   failed <- sum(vapply(trees, is.null, logical(1)))
   if (failed > 0) {
     warning(

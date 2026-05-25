@@ -22,19 +22,24 @@ The MDS coordinate matrix invisibly. A scatter plot is drawn
 on the current graphics device as a side effect.
 }
 \description{
-Calculates the symmetric topological Robinson-Foulds (RF) distance between pairs
-of input trees, projects their structural proximity patterns onto a lower-dimensional
-continuous plane using Classical Multidimensional Scaling (MDS), and renders a
-labeled ordination scatter plot on the current graphics device.
+Calculates the symmetric topological Robinson-Foulds (RF) distance between
+pairs of input trees, projects their structural proximity patterns onto a
+lower-dimensional continuous plane using Classical Multidimensional Scaling
+(MDS), and renders a labeled ordination scatter plot on the current graphics
+device.
 }
 \examples{
 \dontrun{
 
 # Generate a list of 5 mock random trees with identical tip labels
 set.seed(42)
-mock_trees <- replicate(5, ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
+
+mock_trees <- replicate(
+  5,
+  ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
   simplify = FALSE
 )
+
 class(mock_trees) <- "multiPhylo"
 names(mock_trees) <- paste0("Analysis_", 1:5)
 

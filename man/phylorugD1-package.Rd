@@ -12,6 +12,7 @@ Provides functions to visualise node support values from multiple independent ph
 Useful links:
 \itemize{
   \item \url{https://github.com/mdrifathahamed/phylorugD1}
+  \item \url{https://mdrifathahamed.github.io/phylorugD1/}
   \item Report bugs at \url{https://github.com/mdrifathahamed/phylorugD1/issues}
 }
 

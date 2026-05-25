@@ -13,65 +13,80 @@ node_presence_matrix(
 )
 }
 \arguments{
-\item{backbone}{A phylogenetic tree object of class \code{"phylo"}. This tree serves
-as the structural reference template, where each of its internal nodes establishes a
-mapping row coordinate in the final output matrix.}
+\item{backbone}{A phylogenetic tree object of class \code{"phylo"}. This tree
+serves as the structural reference template, where each of its internal
+nodes establishes a mapping row coordinate in the final output matrix.}
 
-\item{trees}{A named list of alternative phylogenetic tree objects of class \code{"phylo"},
-or an object of class \code{"multiPhylo"}. Each tree in this list corresponds to a single
-independent data partition, inference method, or bootstrap replicate, defining a unique data
-mapping column in the output matrix.}
+\item{trees}{A named list of alternative phylogenetic tree objects of class
+\code{"phylo"}, or an object of class \code{"multiPhylo"}. Each tree in
+this list corresponds to a single independent data partition, inference
+method, or bootstrap replicate, defining a unique data mapping column in
+the output matrix.}
 
-\item{use_support}{Logical. If \code{FALSE} (default), the function operates in binary
-presence/absence mode, returning a \code{1} if a backbone clade is congruent with a
-comparison tree and \code{0} otherwise. If \code{TRUE}, the function operates in quantitative
-mode, returning the literal branch support score extracted from matching clades, or \code{0}
+\item{use_support}{Logical. If \code{FALSE} (default), the function operates
+in binary presence/absence mode, returning a \code{1} if a backbone clade
+is congruent with a comparison tree and \code{0} otherwise. If
+\code{TRUE}, the function operates in quantitative mode, returning the
+literal branch support score extracted from matching clades, or \code{0}
 if the clade is completely absent or structurally discordant.}
 
-\item{support_col}{Integer. Specifies which target column data to extract from the internal
-node indexing tables (typically column \code{1} or \code{2}, mapping onto distinct bootstrap or
-posterior probability metrics). Assessed only when \code{use_support = TRUE}. Defaults to \code{1}.}
+\item{support_col}{Integer. Specifies which target column data to extract
+from the internal node indexing tables (typically column \code{1} or
+\code{2}, mapping onto distinct bootstrap or posterior probability
+metrics). Assessed only when \code{use_support = TRUE}. Defaults to
+\code{1}.}
 
-\item{round_support}{Integer or \code{NULL}. If an integer is supplied, numerical support values
-are rounded to the specified number of decimal places before matrix insertion. Defaults to \code{NULL}.}
+\item{round_support}{Integer or \code{NULL}. If an integer is supplied,
+numerical support values are rounded to the specified number of decimal
+places before matrix insertion. Defaults to \code{NULL}.}
 }
 \value{
 A numeric matrix where:
 \itemize{
-\item \strong{Rows:} Represent the internal nodes of the \code{backbone} tree, with the absolute backbone node index stored in the first column labeled \code{"node_id"}.
-\item \strong{Columns:} Represent each target tree supplied inside \code{tree_list}. Column names are automatically mapped onto the names of the list elements, or padded sequentially to \code{"tree_1"}, \code{"tree_2"} if names are absent.
-\item \strong{Cells:} Contain numeric scalar values indicating binary clade presence (\code{0} or \code{1}) or quantitative statistical confidence values (e.g., bootstrap percentages or Bayesian posterior values) depending on \code{use_support}.
+\item \strong{Rows:} Represent the internal nodes of the \code{backbone}
+tree, with the absolute backbone node index stored in the first column
+labeled \code{"node_id"}.
+\item \strong{Columns:} Represent each target tree supplied inside
+\code{tree_list}. Column names are automatically mapped onto the names of
+the list elements, or padded sequentially to \code{"tree_1"},
+\code{"tree_2"} if names are absent. \item \strong{Cells:} Contain numeric
+scalar values indicating binary clade presence (\code{0} or \code{1}) or
+quantitative statistical confidence values (e.g., bootstrap percentages or
+Bayesian posterior values) depending on \code{use_support}.
 }
 }
 \description{
-Evaluates a collection of alternative phylogenetic trees against a designated reference
-backbone topology. For each internal node in the backbone tree, the function determines
-whether a matching monophyletic clade exists in each comparison tree, populating a coordinate
-data framework matrix with binary occupancy flags or quantitative branch support scores.
+Evaluates a collection of alternative phylogenetic trees against a designated
+reference backbone topology. For each internal node in the backbone tree, the
+function determines whether a matching monophyletic clade exists in each
+comparison tree, populating a coordinate data framework matrix with binary
+occupancy flags or quantitative branch support scores.
 }
 \examples{
 \dontrun{
 
 # Generate a shared backbone tree and several alternative trees
-shared_backbone <- ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
+
+  shared_backbone <- ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
 alternative_trees <- list(
-  UCE_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E")),
+   UCE_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E")),
   Mito_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
 )
 
 # 1. Calculate binary presence/absence matrix
+
 topo_matrix <- node_presence_matrix(
   backbone    = shared_backbone,
-  trees   = alternative_trees,
+  trees       = alternative_trees,
   use_support = FALSE
 )
 
-# 2. Calculate continuous support value intensity matrix
 support_matrix <- node_presence_matrix(
   backbone    = shared_backbone,
-  trees   = alternative_trees,
+  trees       = alternative_trees,
   use_support = TRUE,
   support_col = 1
 )
 }
+
 }
