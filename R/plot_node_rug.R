@@ -80,7 +80,7 @@ plot_node_rug <- function(tree, rug_mt,
                           y_offset = 0,
                           map_to_color,
                           pal_info,
-                          n_cols = 3) {
+                          n_cols = 2) {
 
   if (!inherits(tree, "phylo")) {
     stop("`tree` must be a phylogenetic tree of class \"phylo\".",
