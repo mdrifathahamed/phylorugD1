@@ -10,7 +10,7 @@
 - [`plot_node_rug()`](https://mdrifathahamed.github.io/phylorugD1/reference/plot_node_rug.md)
   : Plot Node Rug Grids Over a Phylogenetic Canvas
 - [`read_trees_from_dir()`](https://mdrifathahamed.github.io/phylorugD1/reference/read_trees_from_dir.md)
-  : Reads Multiple Phylogenetic Trees from a Directory
+  : Read multiple phylogenetic trees from a directory
 - [`rf_similarity_plot()`](https://mdrifathahamed.github.io/phylorugD1/reference/rf_similarity_plot.md)
   : Map and Plot Multidimensional Tree Similarity from Robinson-Foulds
   Distances

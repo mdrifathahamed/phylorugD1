@@ -81,23 +81,24 @@ A numeric matrix where:
 if (FALSE) { # \dontrun{
 
 # Generate a shared backbone tree and several alternative trees
-shared_backbone <- ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
+
+  shared_backbone <- ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
 alternative_trees <- list(
-  UCE_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E")),
+   UCE_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E")),
   Mito_partition = ape::rtree(5, tip.label = c("A", "B", "C", "D", "E"))
 )
 
 # 1. Calculate binary presence/absence matrix
+
 topo_matrix <- node_presence_matrix(
   backbone    = shared_backbone,
-  trees   = alternative_trees,
+  trees       = alternative_trees,
   use_support = FALSE
 )
 
-# 2. Calculate continuous support value intensity matrix
 support_matrix <- node_presence_matrix(
   backbone    = shared_backbone,
-  trees   = alternative_trees,
+  trees       = alternative_trees,
   use_support = TRUE,
   support_col = 1
 )

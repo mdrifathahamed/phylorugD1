@@ -42,9 +42,13 @@ if (FALSE) { # \dontrun{
 
 # Generate a list of 5 mock random trees with identical tip labels
 set.seed(42)
-mock_trees <- replicate(5, ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
+
+mock_trees <- replicate(
+  5,
+  ape::rtree(10, tip.label = paste0("Taxon_", 1:10)),
   simplify = FALSE
 )
+
 class(mock_trees) <- "multiPhylo"
 names(mock_trees) <- paste0("Analysis_", 1:5)
 

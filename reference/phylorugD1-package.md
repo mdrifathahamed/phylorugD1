@@ -15,6 +15,8 @@ Useful links:
 
 - <https://github.com/mdrifathahamed/phylorugD1>
 
+- <https://mdrifathahamed.github.io/phylorugD1/>
+
 - Report bugs at <https://github.com/mdrifathahamed/phylorugD1/issues>
 
 ## Author
