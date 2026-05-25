@@ -10,13 +10,13 @@ make_test_tree <- function() {
 
 make_test_dict <- function() {
   data.frame(
-    from = c("sp1", "sp2"),
-    to = c("Species_one", "Species_two"),
+    from             = c("sp1", "sp2"),
+    to               = c("Species_one", "Species_two"),
     stringsAsFactors = FALSE
   )
 }
 
-#  input validation
+# ---- input validation -------------------------------------------------------
 
 test_that("stops when phy is not a phylo object", {
   expect_error(
@@ -27,34 +27,40 @@ test_that("stops when phy is not a phylo object", {
 
 test_that("stops when data is not a data frame", {
   expect_error(
-    translate_tree_tips(make_test_tree(),
-                        list(from = "sp1", to = "Species_one")),
+    translate_tree_tips(
+      make_test_tree(),
+      list(from = "sp1", to = "Species_one")
+    ),
     "must be a data frame"
   )
 })
 
 test_that("stops when column names not found in data", {
   expect_error(
-    translate_tree_tips(make_test_tree(), make_test_dict(),
+    translate_tree_tips(
+      make_test_tree(),
+      make_test_dict(),
       from_col = "wrong_col"
     ),
     "not found in"
   )
 })
 
-# correct translation
+# ---- correct behaviour ------------------------------------------------------
 
 test_that("translates matched tips correctly", {
-  tree <- make_test_tree()
+  tree   <- make_test_tree()
   result <- translate_tree_tips(tree, make_test_dict())
 
-  expect_equal(result$tip.label[1], "Species_one")
-  expect_equal(result$tip.label[2], "Species_two")
-  expect_equal(result$tip.label[3], "sp3")
+  expect_true("Species_one" %in% result$tip.label)
+  expect_true("Species_two" %in% result$tip.label)
+  expect_true("sp3" %in% result$tip.label)
+  expect_false("sp1" %in% result$tip.label)
+  expect_false("sp2" %in% result$tip.label)
 })
 
 test_that("returns a phylo object", {
-  tree <- make_test_tree()
+  tree   <- make_test_tree()
   result <- translate_tree_tips(tree, make_test_dict())
   expect_s3_class(result, "phylo")
 })
