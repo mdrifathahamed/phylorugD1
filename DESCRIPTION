@@ -16,7 +16,12 @@ Authors@R:
         email   = "sergei.tarasov@helsinki.fi",
         role    = "aut",
         comment = c(ORCID = "0000-0002-1737-9403")
-      )
+      ),
+      person("J. Salvador", "Arias",
+         email   = "salvador.ariasbecerra@helsinki.fi",
+         role    = "ctb",
+         comment = c(ORCID = "0000-0002-3717-435X")
+     )
     )
 Description: Provides functions to visualise node support values from
     multiple independent phylogenomic analyses simultaneously on a

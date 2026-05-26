@@ -26,5 +26,10 @@ Authors:
   \item Sergei Tarasov \email{sergei.tarasov@helsinki.fi} (\href{https://orcid.org/0000-0002-1737-9403}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item J. Salvador Arias \email{salvador.ariasbecerra@helsinki.fi} (\href{https://orcid.org/0000-0002-3717-435X}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}
