@@ -7,6 +7,9 @@
 
 - **Sergei Tarasov**. Author. [](https://orcid.org/0000-0002-1737-9403)
 
+- **J. Salvador Arias**. Contributor.
+  [](https://orcid.org/0000-0002-3717-435X)
+
 ## Citation
 
 Source:

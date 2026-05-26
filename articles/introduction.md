@@ -417,3 +417,9 @@ the phylogenetic analysis of molecular data. *Systematic Biology*,
 
 Wheeler, W. C., & Hayashi, C. Y. (1998). The phylogeny of the extant
 chelicerate orders. *Cladistics*, 14, 173–192.
+
+## Acknowledgements
+
+Prototype R script by Dr. Sergei Tarasov, Tarasov Lab, LUOMUS,
+University of Helsinki. MSc project supervised by Dr. Sergei Tarasov and
+co-supervised by Salvador Arias Becerra, University of Helsinki.
