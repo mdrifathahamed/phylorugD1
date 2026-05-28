@@ -25,7 +25,7 @@ tip labels translated. The tree topology and edge lengths remain unchanged.
 \description{
 Renames the terminal tip labels of a phylogenetic tree using a lookup table
 supplied as a data frame. Only tips matching entries in \code{from_col} are
-renamed — unmatched tips are left unchanged. Both \code{from_col} and \code{to_col}
+renamed , unmatched tips are left unchanged. Both \code{from_col} and \code{to_col}
 must be character columns not factors, and a summary message reports how many
 tips were translated.
 }

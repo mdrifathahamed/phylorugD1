@@ -73,3 +73,45 @@ get_node_support <- function(tree, round = NULL) {
 
   result
 }
+# Internal helper functions for phylorugD1
+# Not exported -- called internally by exported functions
+
+get_node_support <- function(tree, round = NULL) {
+  # ... existing code ...
+}
+
+# ------------------------------------------------------------------------------
+# compute_adaptive_cell_size()
+# Computes per-node cell height based on local tip spacing
+# Called internally by plot_node_rug() when adaptive = TRUE
+# ------------------------------------------------------------------------------
+
+compute_adaptive_cell_size <- function(backbone,
+                                       last_pp,
+                                       fill_fraction = 0.4) {
+  n_tip   <- ape::Ntip(backbone)
+  n_node  <- ape::Nnode(backbone)
+  tip_yy  <- last_pp$yy[seq_len(n_tip)]
+  node_yy <- last_pp$yy[(n_tip + 1):(n_tip + n_node)]
+
+  cell_sizes <- vapply(
+    seq_len(n_node),
+    function(i) {
+      node_y        <- node_yy[i]
+      above         <- tip_yy[tip_yy > node_y]
+      below         <- tip_yy[tip_yy < node_y]
+
+      if (length(above) == 0 || length(below) == 0) {
+        return(NA_real_)
+      }
+
+      local_gap <- min(above) - max(below)
+      local_gap * fill_fraction
+    },
+    numeric(1)
+  )
+
+  global_median <- stats::median(cell_sizes, na.rm = TRUE)
+  cell_sizes[is.na(cell_sizes)] <- global_median
+  cell_sizes
+}

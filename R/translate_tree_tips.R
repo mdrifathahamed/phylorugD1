@@ -2,7 +2,7 @@
 #'
 #' Renames the terminal tip labels of a phylogenetic tree using a lookup table
 #' supplied as a data frame. Only tips matching entries in `from_col` are
-#' renamed — unmatched tips are left unchanged. Both `from_col` and `to_col`
+#' renamed , unmatched tips are left unchanged. Both `from_col` and `to_col`
 #' must be character columns not factors, and a summary message reports how many
 #' tips were translated.
 #'

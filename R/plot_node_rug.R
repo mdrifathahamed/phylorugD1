@@ -74,13 +74,25 @@
 #'   n_cols = 3
 #' )
 #' }
+#old code
+#plot_node_rug <- function(tree, rug_mt,
+                         # cell_h, cell_w,
+                          #x_offset = 0.02,
+                         # y_offset = 0,
+                          #map_to_color,
+                          #pal_info,
+                          #n_cols = 2) {
+# NEW signature -- add adaptive and fill_fraction
 plot_node_rug <- function(tree, rug_mt,
-                          cell_h, cell_w,
-                          x_offset = 0.02,
-                          y_offset = 0,
+                          cell_h,
+                          cell_w,
+                          x_offset      = -0.0095,
+                          y_offset      = 0.0023,
                           map_to_color,
                           pal_info,
-                          n_cols = 2) {
+                          n_cols        = 2,
+                          adaptive      = TRUE,
+                          fill_fraction = 0.4) {
 
   if (!inherits(tree, "phylo")) {
     stop("`tree` must be a phylogenetic tree of class \"phylo\".",
