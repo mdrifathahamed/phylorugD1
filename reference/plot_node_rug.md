@@ -13,11 +13,13 @@ plot_node_rug(
   rug_mt,
   cell_h,
   cell_w,
-  x_offset = 0.02,
-  y_offset = 0,
+  x_offset = -0.0095,
+  y_offset = 0.0023,
   map_to_color,
   pal_info,
-  n_cols = 2
+  n_cols = 2,
+  adaptive = TRUE,
+  fill_fraction = 0.4
 )
 ```
 
